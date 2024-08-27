@@ -1,0 +1,15 @@
+.container {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.image {
+  height: 60px;
+  width: 60px;
+}
+
+.label {
+  margin-top: 1px;
+  text-align: center;
+  color: #7f7f7f;
+}

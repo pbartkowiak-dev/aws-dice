@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background: lightgray;
+  margin: 0 auto;
+  margin-top: 20px;
+  border-radius: 10px;
+  width: 530px;
+  height: 940px;
+}
+
+.body-container {
+  flex: 1;
+}
+
+
+.dice-tray-container {
+  background: white;
+  height: 300px;
+  padding: 10px 30px 15px;
+}
+
