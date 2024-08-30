@@ -1,14 +1,14 @@
 .input-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .dice-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 4px;
   justify-items: center;
 }

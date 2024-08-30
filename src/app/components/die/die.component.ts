@@ -23,7 +23,7 @@ export class DieComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.diceImgSrc = `/assets/img/${this.label.toLowerCase()}.png`;
+    this.diceImgSrc = `/assets/img/${this.label}.png`;
 
   }
 

@@ -1,0 +1,35 @@
+.container {
+  margin: 10px auto 0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+}
+
+.check {
+  width: 30px;
+  cursor: pointer;
+}
+
+.dice {
+  flex: 1;
+}
+
+.item-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 235px;
+  background: #444444;
+  font-size: 21px;
+  padding: 1px 10px;
+  border-radius: 15px;
+
+}
+
+.score {
+  font-size: 26px;
+  font-weight: bold;
+}

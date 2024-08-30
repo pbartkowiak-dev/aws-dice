@@ -1,8 +1,20 @@
 .container {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .top-bar {
   display: flex;
   justify-content: space-between;
+}
+
+.results-list {
+  flex: 1;
+}
+
+.new-roll {
+  display: flex;
+  justify-content: flex-end;
 }

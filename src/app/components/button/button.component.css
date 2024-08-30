@@ -1,5 +1,5 @@
 .container {
-  height: 33px;
+  height: 35px;
   min-width: 55px;
   background: white;
   border-radius: 15px;
@@ -14,13 +14,29 @@
 }
 
 .circle {
-  height: 45px;
   min-width: 0;
-  width: 45px;
+  width: 35px;
   border-radius: 50%;
+  padding: 0;
+}
+
+.large {
+  height: 55px;
+  font-size: 18px;
+  padding: 2px 4px 2px 18px;
 }
 
 .icon {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
+}
+
+.circle .icon {
+  width: 25px;
+  height: 25px;
+}
+
+.large .icon {
+  width: 45px;
+  height: 45px;
 }
