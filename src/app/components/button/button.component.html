@@ -1,1 +1,7 @@
-<button>{{label}} <img *ngIf="iconSrc" src="{{iconSrc}}"></button>
+<button class="container" [ngClass]="{circle: type==='circle'}">
+  {{label}} <img
+    *ngIf="iconSrc"
+    class="icon"
+    src="{{iconSrc}}"
+>
+</button>

@@ -1,0 +1,26 @@
+.container {
+  height: 33px;
+  min-width: 55px;
+  background: white;
+  border-radius: 15px;
+  border: 0;
+  padding: 2px 8px 2px 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.circle {
+  height: 45px;
+  min-width: 0;
+  width: 45px;
+  border-radius: 50%;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
