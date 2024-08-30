@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container" *ngFor="let item of results; index as i;">
   <div class="item-container">
     <div class="check">☑</div>
-    <div class="dice">d6</div>
-    <div class="score">6</div>
+    <div class="dice">d{{item.faces}}</div>
+    <div class="score">{{item.result}}</div>
   </div>
 </div>
