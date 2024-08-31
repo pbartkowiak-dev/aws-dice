@@ -16,11 +16,28 @@ export class ResultsBarComponent implements OnInit {
   summary: string = '';
   results: RollResult[] = []
 
-  constructor(private rollService: RollService) {
-  }
+  constructor(
+    private rollService: RollService
+  ) { }
 
   ngOnInit() {
-    this.results = this.rollService.getResults()
+    this.results = this.rollService.getResults();
+
+    console.log('results bar results', this.results)
+
+    if (this.results.length) {
+      const resultsValues = this.results.map((result) => {
+        return result.result
+      });
+
+      this.total = resultsValues.reduce((previousValue, currentValue)=> {
+        return previousValue + currentValue;
+      }, 0);
+
+      this.highest = Math.max(...resultsValues);
+      this.lowest = Math.max(...resultsValues);
+    }
+
 
   }
 }

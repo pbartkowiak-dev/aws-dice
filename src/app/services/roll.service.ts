@@ -4,17 +4,31 @@ import { RollResult} from '../model/roll'
   providedIn: 'root'
 })
 export class RollService {
+  results: RollResult[] = [];
 
   constructor() {}
 
-  getResults(): RollResult[] {
-    return [{
-      faces: 6,
-      result: 4
-    }, {
-      faces: 20,
-      result: 18
-    }];
+  rollOffline(faces: number): number {
+    return Math.floor(Math.random() * faces) + 1;
   }
 
+  handleDieClick(faces: number): void {
+    const result = this.rollOffline(faces);
+    console.log('roll faces->', faces)
+    console.log('roll result->', result)
+
+    this.results.push({
+      faces,
+      result
+    })
+
+  }
+
+  getResults(): RollResult[] {
+    return this.results;
+  }
+
+  handleNewRollClick() {
+    this.results.length = 0;
+  }
 }

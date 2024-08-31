@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
+import {RollService} from "../../services/roll.service";
 
 @Component({
   selector: 'app-die',
@@ -17,8 +18,9 @@ export class DieComponent implements OnInit {
   @Input() type: string = "6"
   @Input() faces: number = 6
 
-  constructor() {
-    console.log('dice, label', this.label)
+  constructor(
+    private rollService: RollService
+  ) {
     this.diceImgSrc = ''
   }
 
@@ -28,7 +30,7 @@ export class DieComponent implements OnInit {
   }
 
   onClick() {
-    console.log('click ->', this.label)
+    this.rollService.handleDieClick(this.faces)
   }
 
 }

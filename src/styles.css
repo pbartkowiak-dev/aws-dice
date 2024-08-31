@@ -11,3 +11,7 @@ body {
   font-size: 17px;
   font-family: Roboto, Lato, Helvetica, sans-serif;
 }
+
+.hidden {
+  display: none !important;
+}

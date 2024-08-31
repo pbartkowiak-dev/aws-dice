@@ -13,13 +13,13 @@ import {RollResult} from "../../model/roll";
   styleUrl: './results-list.component.css'
 })
 export class ResultsListComponent implements OnInit {
-  results: RollResult[]= []
+  results: RollResult[] = []
 
   constructor(private rollService: RollService) {
   }
 
   ngOnInit() {
-    this.results = this.rollService.getResults()
+    this.results = this.rollService.getResults();
 
   }
 }

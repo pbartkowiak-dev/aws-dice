@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ResultsBarComponent} from "../results-bar/results-bar.component";
 import {ResultsListComponent} from "../results-list/results-list.component";
 import {ButtonComponent} from "../button/button.component";
+import {RollService} from "../../services/roll.service";
 
 @Component({
   selector: 'app-body',
@@ -16,4 +17,11 @@ import {ButtonComponent} from "../button/button.component";
 })
 export class BodyComponent {
 
+  constructor(
+    private rollService: RollService
+  ) {
+  }
+  handleNewRollClick() {
+    this.rollService.handleNewRollClick()
+  }
 }

@@ -6,6 +6,11 @@
   <app-results-bar></app-results-bar>
   <app-results-list class="results-list"></app-results-list>
   <div class="new-roll">
-    <app-button label="New Roll" iconSrc="/assets/img/double-check.png" type="large"></app-button>
+    <app-button
+      label="New Roll"
+      iconSrc="/assets/img/double-check.png"
+      type="large"
+      (click)="handleNewRollClick()"
+    ></app-button>
   </div>
 </div>
