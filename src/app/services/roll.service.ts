@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { RollResult} from '../model/roll'
+import {BehaviorSubject, Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
 export class RollService {
-  results: RollResult[] = [];
+  private results: BehaviorSubject<RollResult[]> = new BehaviorSubject<RollResult[]>([]);
+  getResults: Observable<RollResult[]> = this.results.asObservable();
 
-  constructor() {}
+  constructor() {
+  }
+
 
   rollOffline(faces: number): number {
     return Math.floor(Math.random() * faces) + 1;
@@ -17,18 +21,12 @@ export class RollService {
     console.log('roll faces->', faces)
     console.log('roll result->', result)
 
-    this.results.push({
-      faces,
-      result
-    })
+    const updatedResults = [...this.results.value, { faces, result }];
+    this.results.next(updatedResults);
 
-  }
-
-  getResults(): RollResult[] {
-    return this.results;
   }
 
   handleNewRollClick() {
-    this.results.length = 0;
+    this.results.next([])
   }
 }
