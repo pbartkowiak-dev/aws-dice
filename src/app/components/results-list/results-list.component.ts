@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {RollService} from "../../services/roll.service";
 import {RollResult} from "../../model/roll";
 
@@ -7,7 +7,9 @@ import {RollResult} from "../../model/roll";
   selector: 'app-results-list',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    NgIf,
+    NgClass
   ],
   templateUrl: './results-list.component.html',
   styleUrl: './results-list.component.css'
@@ -19,6 +21,10 @@ export class ResultsListComponent implements OnInit {
     this.rollService.getResults.subscribe((results) => {
       this.results = results
     })
+  }
+
+  handleToggleActiveClick(id: number): void {
+    this.rollService.toggleActive(id);
   }
 
   ngOnInit() {

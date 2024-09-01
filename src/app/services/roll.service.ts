@@ -18,12 +18,27 @@ export class RollService {
 
   handleDieClick(faces: number): void {
     const result = this.rollOffline(faces);
-    console.log('roll faces->', faces)
-    console.log('roll result->', result)
 
-    const updatedResults = [...this.results.value, { faces, result }];
+    const updatedResults = [
+      ...this.results.value,
+      {
+        faces,
+        result,
+        active: true,
+        id: +Date.now()
+      }
+    ];
     this.results.next(updatedResults);
+  }
 
+  toggleActive(id: number) {
+    const updatedResults = this.results.value.map((result) => {
+      if (result.id === id) {
+        result.active = !result.active;
+      }
+      return result;
+    })
+    this.results.next(updatedResults);
   }
 
   handleNewRollClick() {

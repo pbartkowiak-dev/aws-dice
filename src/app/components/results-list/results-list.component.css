@@ -6,15 +6,24 @@
   justify-content: center;
   align-items: center;
   gap: 9px;
+  opacity: .7;
+}
+
+.container.active {
+  opacity: 1;
 }
 
 .check {
   width: 30px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .dice {
   flex: 1;
+  padding-left: 10px;
 }
 
 .item-container {
@@ -24,12 +33,17 @@
   width: 235px;
   background: #444444;
   font-size: 21px;
-  padding: 1px 10px;
+  padding: 1px 10px 1px 2px;
   border-radius: 15px;
-
 }
 
 .score {
   font-size: 26px;
   font-weight: bold;
+}
+
+.icon {
+  height: 28px;
+  width: 28px;
+  filter: invert(1);
 }

@@ -17,8 +17,11 @@ export class ResultsBarComponent implements OnInit {
 
   constructor(private rollService: RollService) {
     this.rollService.getResults.subscribe(results => {
-      if (results.length) {
-        const resultsValues = results.map((result) => {
+
+      const resultsActive = results.filter((result => result.active))
+
+      if (resultsActive.length) {
+        const resultsValues = resultsActive.map((result) => {
           return result.result
         });
 
@@ -26,11 +29,14 @@ export class ResultsBarComponent implements OnInit {
           return previousValue + currentValue;
         }, 0);
 
-        this.summary = this.getSummary(results);
+        this.summary = this.getSummary(resultsActive);
 
-        if (results.length >= 2) {
+        if (resultsActive.length >= 2) {
           this.highest = Math.max(...resultsValues);
           this.lowest = Math.min(...resultsValues);
+        } else {
+          this.highest = 0;
+          this.lowest = 0;
         }
       } else {
         this.total = 0;
