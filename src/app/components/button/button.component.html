@@ -1,7 +1,6 @@
-<button class="container" [ngClass]="{circle: type==='circle', large: type==='large'}">
-  {{label}} <img
-    *ngIf="iconSrc"
-    class="icon"
-    src="{{iconSrc}}"
+<button
+  class="container"
+  [ngClass]="{ circle: type === 'circle', large: type === 'large' }"
 >
+  {{ label }} <img *ngIf="iconSrc" class="icon" src="{{ iconSrc }}" />
 </button>

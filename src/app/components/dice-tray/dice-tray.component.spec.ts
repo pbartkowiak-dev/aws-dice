@@ -8,9 +8,8 @@ describe('DiceTrayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DiceTrayComponent]
-    })
-    .compileComponents();
+      imports: [DiceTrayComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DiceTrayComponent);
     component = fixture.componentInstance;

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { RollResult} from '../model/roll'
-import {BehaviorSubject, Observable} from "rxjs";
+import { RollResult } from '../model/roll';
+import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RollService {
-  private results: BehaviorSubject<RollResult[]> = new BehaviorSubject<RollResult[]>([]);
+  private results: BehaviorSubject<RollResult[]> = new BehaviorSubject<
+    RollResult[]
+  >([]);
   getResults: Observable<RollResult[]> = this.results.asObservable();
 
-  constructor() {
-  }
-
+  constructor() {}
 
   rollOffline(faces: number): number {
     return Math.floor(Math.random() * faces) + 1;
@@ -25,8 +25,8 @@ export class RollService {
         faces,
         result,
         active: true,
-        id: +Date.now()
-      }
+        id: +Date.now(),
+      },
     ];
     this.results.next(updatedResults);
   }
@@ -37,11 +37,11 @@ export class RollService {
         result.active = !result.active;
       }
       return result;
-    })
+    });
     this.results.next(updatedResults);
   }
 
   handleNewRollClick() {
-    this.results.next([])
+    this.results.next([]);
   }
 }

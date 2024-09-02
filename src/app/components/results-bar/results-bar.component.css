@@ -23,7 +23,8 @@
   align-items: self-end;
 }
 
-.lowest, .highest {
+.lowest,
+.highest {
   display: flex;
   flex-direction: column;
   font-size: 46px;

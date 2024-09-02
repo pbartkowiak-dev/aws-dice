@@ -1,14 +1,24 @@
 <div
   class="container"
-  [ngClass]="{active: item.active}"
-  *ngFor="let item of results; index as i;"
+  [ngClass]="{ active: item.active }"
+  *ngFor="let item of results; index as i"
 >
   <div class="item-container">
     <div class="check" (click)="handleToggleActiveClick(item.id)">
-      <img *ngIf="item.active" class="icon" src="/assets/img/circle-checked.png" alt="☑">
-      <img *ngIf="!item.active" class="icon" src="/assets/img/circle-unchecked.png" alt="𐄂">
+      <img
+        *ngIf="item.active"
+        class="icon"
+        src="/assets/img/circle-checked.png"
+        alt="☑"
+      />
+      <img
+        *ngIf="!item.active"
+        class="icon"
+        src="/assets/img/circle-unchecked.png"
+        alt="𐄂"
+      />
     </div>
-    <div class="dice">d{{item.faces}}</div>
-    <div class="score">{{item.result}}</div>
+    <div class="dice">d{{ item.faces }}</div>
+    <div class="score">{{ item.result }}</div>
   </div>
 </div>

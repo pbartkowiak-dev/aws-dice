@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {RollService} from "../../services/roll.service";
-import {RollResult} from "../../model/roll";
+import { Component, OnInit } from '@angular/core';
+import { RollService } from '../../services/roll.service';
+import { RollResult } from '../../model/roll';
 
 @Component({
   selector: 'app-results-bar',
   standalone: true,
   imports: [],
   templateUrl: './results-bar.component.html',
-  styleUrl: './results-bar.component.css'
+  styleUrl: './results-bar.component.css',
 })
 export class ResultsBarComponent implements OnInit {
   total: number = 0;
@@ -16,16 +16,15 @@ export class ResultsBarComponent implements OnInit {
   summary: string = '';
 
   constructor(private rollService: RollService) {
-    this.rollService.getResults.subscribe(results => {
-
-      const resultsActive = results.filter((result => result.active))
+    this.rollService.getResults.subscribe((results) => {
+      const resultsActive = results.filter((result) => result.active);
 
       if (resultsActive.length) {
         const resultsValues = resultsActive.map((result) => {
-          return result.result
+          return result.result;
         });
 
-        this.total = resultsValues.reduce((previousValue, currentValue)=> {
+        this.total = resultsValues.reduce((previousValue, currentValue) => {
           return previousValue + currentValue;
         }, 0);
 
@@ -44,20 +43,23 @@ export class ResultsBarComponent implements OnInit {
         this.highest = 0;
         this.summary = '';
       }
-    })
+    });
   }
 
   getSummary(results: RollResult[]): string {
-    const diceCount = results.reduce((previousValue, { faces }) => {
-      const newValue = {...previousValue};
-      const key = `d${faces}`;
-      if (previousValue.hasOwnProperty(key)) {
-        newValue[key] += 1
-      } else {
-        newValue[key] = 1;
-      }
-      return newValue;
-    }, {} as { [key: string]: number });
+    const diceCount = results.reduce(
+      (previousValue, { faces }) => {
+        const newValue = { ...previousValue };
+        const key = `d${faces}`;
+        if (previousValue.hasOwnProperty(key)) {
+          newValue[key] += 1;
+        } else {
+          newValue[key] = 1;
+        }
+        return newValue;
+      },
+      {} as { [key: string]: number },
+    );
 
     const entriesArray = Object.entries(diceCount).sort((a, b) => {
       const aNumber = parseInt(a[0].substring(1));
@@ -66,18 +68,16 @@ export class ResultsBarComponent implements OnInit {
     });
 
     return entriesArray.reduce((previousValue, currentValue) => {
-       const dice = currentValue[0];
-       const amount = currentValue[1];
+      const dice = currentValue[0];
+      const amount = currentValue[1];
 
-       if (previousValue === '') {
-         return previousValue + amount + dice;
-       } else {
-         return previousValue + ' + ' + amount + dice;
-       }
-
-     }, '')
+      if (previousValue === '') {
+        return previousValue + amount + dice;
+      } else {
+        return previousValue + ' + ' + amount + dice;
+      }
+    }, '');
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }
