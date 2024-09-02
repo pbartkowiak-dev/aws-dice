@@ -30,7 +30,10 @@
 }
 
 .input {
+  width: 70px;
+  text-align: center;
   background: #1f1f1f;
+  color: #fff;
   border: 0;
   font-size: 33px;
   font-weight: bold;

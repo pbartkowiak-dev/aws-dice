@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RollService } from '../../services/roll.service';
 import { RollResult } from '../../model/roll';
+import { ModifierService } from '../../services/modifier.service';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-results-bar',
@@ -15,8 +17,14 @@ export class ResultsBarComponent implements OnInit {
   highest: number = 0;
   summary: string = '';
 
-  constructor(private rollService: RollService) {
-    rollService.getResults.subscribe((results) => {
+  constructor(
+    private rollService: RollService,
+    private modifierService: ModifierService,
+  ) {
+    combineLatest([
+      rollService.getResults,
+      modifierService.getModifier,
+    ]).subscribe(([results, modifier]: [RollResult[], number]) => {
       const resultsActive = results.filter((result) => result.active);
 
       if (resultsActive.length) {
@@ -26,13 +34,13 @@ export class ResultsBarComponent implements OnInit {
 
         this.total = resultsValues.reduce((previousValue, currentValue) => {
           return previousValue + currentValue;
-        }, 0);
+        }, modifier);
 
-        this.summary = this.getSummary(resultsActive);
+        this.summary = this.getSummary(resultsActive, modifier);
 
         if (resultsActive.length >= 2) {
-          this.highest = Math.max(...resultsValues);
-          this.lowest = Math.min(...resultsValues);
+          this.highest = Math.max(...resultsValues) + modifier;
+          this.lowest = Math.min(...resultsValues) + modifier;
         } else {
           this.highest = 0;
           this.lowest = 0;
@@ -46,7 +54,7 @@ export class ResultsBarComponent implements OnInit {
     });
   }
 
-  getSummary(results: RollResult[]): string {
+  getSummary(results: RollResult[], modifier: number): string {
     const diceCount = results.reduce(
       (previousValue, { faces }) => {
         const newValue = { ...previousValue };
@@ -67,16 +75,24 @@ export class ResultsBarComponent implements OnInit {
       return aNumber - bNumber;
     });
 
-    return entriesArray.reduce((previousValue, currentValue) => {
-      const dice = currentValue[0];
-      const amount = currentValue[1];
+    const summaryWithoutModifier = entriesArray.reduce(
+      (previousValue, currentValue) => {
+        const dice = currentValue[0];
+        const amount = currentValue[1];
 
-      if (previousValue === '') {
-        return previousValue + amount + dice;
-      } else {
-        return previousValue + ' + ' + amount + dice;
-      }
-    }, '');
+        if (previousValue === '') {
+          return previousValue + amount + dice;
+        } else {
+          return previousValue + ' + ' + amount + dice;
+        }
+      },
+      '',
+    );
+
+    if (modifier === 0) {
+      return summaryWithoutModifier;
+    }
+    return `${summaryWithoutModifier}${modifier > 0 ? '+' + modifier : modifier}`;
   }
 
   ngOnInit() {}

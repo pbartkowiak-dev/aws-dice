@@ -1,7 +1,8 @@
 <div class="container">
   <div class="input-container">
     <button class="button" (click)="handleDecrease()">-</button>
-    <div class="input">{{modifier}}</div>
+<!--    <div class="input">{{modifier}}</div>-->
+    <input class="input" [(ngModel)]="modifier" />
     <button class="button" (click)="handleIncrease()">+</button>
   </div>
   <p class="label">Modifier</p>
