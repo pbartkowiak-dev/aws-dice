@@ -16,7 +16,7 @@ export class ResultsBarComponent implements OnInit {
   summary: string = '';
 
   constructor(private rollService: RollService) {
-    this.rollService.getResults.subscribe((results) => {
+    rollService.getResults.subscribe((results) => {
       const resultsActive = results.filter((result) => result.active);
 
       if (resultsActive.length) {

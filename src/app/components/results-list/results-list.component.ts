@@ -14,7 +14,7 @@ export class ResultsListComponent implements OnInit {
   results: RollResult[] = [];
 
   constructor(private rollService: RollService) {
-    this.rollService.getResults.subscribe((results) => {
+    rollService.getResults.subscribe((results) => {
       this.results = results;
     });
   }

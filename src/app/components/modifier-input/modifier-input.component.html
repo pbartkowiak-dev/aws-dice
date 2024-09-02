@@ -1,8 +1,8 @@
 <div class="container">
   <div class="input-container">
-    <button class="button">-</button>
-    <div class="input">+3</div>
-    <button class="button">+</button>
+    <button class="button" (click)="handleDecrease()">-</button>
+    <div class="input">{{modifier}}</div>
+    <button class="button" (click)="handleIncrease()">+</button>
   </div>
   <p class="label">Modifier</p>
 </div>

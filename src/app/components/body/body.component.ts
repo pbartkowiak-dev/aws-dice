@@ -3,6 +3,7 @@ import { ResultsBarComponent } from '../results-bar/results-bar.component';
 import { ResultsListComponent } from '../results-list/results-list.component';
 import { ButtonComponent } from '../button/button.component';
 import { RollService } from '../../services/roll.service';
+import { ModifierService } from '../../services/modifier.service';
 
 @Component({
   selector: 'app-body',
@@ -12,8 +13,12 @@ import { RollService } from '../../services/roll.service';
   styleUrl: './body.component.css',
 })
 export class BodyComponent {
-  constructor(private rollService: RollService) {}
+  constructor(
+    private rollService: RollService,
+    private modifierService: ModifierService,
+  ) {}
   handleNewRollClick() {
     this.rollService.handleNewRollClick();
+    this.modifierService.handleNewRollClick();
   }
 }
