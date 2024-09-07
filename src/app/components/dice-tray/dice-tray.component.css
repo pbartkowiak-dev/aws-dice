@@ -9,6 +9,6 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 5px;
-  grid-row-gap: 4px;
+  grid-row-gap: 2px;
   justify-items: center;
 }
