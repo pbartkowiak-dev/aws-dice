@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
-  useLambda: false,
+  production: true,
+  useLambda: true,
   apiUrl: '',
 };
