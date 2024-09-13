@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { RollResult } from '../model/roll';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class RollService {
+  private useLambda = environment.useLambda;
+  private apiUrl = environment.apiUrl;
+
   private results: BehaviorSubject<RollResult[]> = new BehaviorSubject<
     RollResult[]
   >([]);
@@ -16,8 +20,31 @@ export class RollService {
     return Math.floor(Math.random() * faces) + 1;
   }
 
-  handleDieClick(faces: number): void {
-    const result = this.rollOffline(faces);
+  async rollServerless(faces: number): Promise<number> {
+    const url = new URL(this.apiUrl);
+    url.searchParams.append('faces', `${faces}`);
+
+    const response = await fetch(url, {
+      method: 'GET',
+    });
+    const data = await response.json();
+    try {
+      const body = JSON.parse(data.body);
+      return body.result;
+    } catch (error) {
+      console.error(error);
+      return this.rollOffline(faces);
+    }
+  }
+
+  async handleDieClick(faces: number): Promise<void> {
+    let result;
+
+    if (this.useLambda && this.apiUrl) {
+      result = await this.rollServerless(faces);
+    } else {
+      result = this.rollOffline(faces);
+    }
 
     const updatedResults = [
       ...this.results.value,
