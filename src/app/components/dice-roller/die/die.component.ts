@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
-import { RollService } from '../../services/roll.service';
+import { RollService } from '../../../services/roll.service';
 
 @Component({
   selector: 'app-die',

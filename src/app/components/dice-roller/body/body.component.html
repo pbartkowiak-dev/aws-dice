@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="top-bar">
+    <a ariaCurrentWhenActive="page" routerLink="login" routerLinkActive="active">
+      <app-button
+        label=""
+        iconSrc="/assets/img/profile.png"
+        type="circle"
+      ></app-button>
+    </a>
+    <a ariaCurrentWhenActive="page" routerLink="history" routerLinkActive="active">
+      <app-button label="History" iconSrc="/assets/img/history.png"></app-button>
+    </a>
+  </div>
+  <app-results-bar></app-results-bar>
+  <app-results-list class="results-list"></app-results-list>
+  <div class="new-roll">
+    <app-button
+      label="New Roll"
+      iconSrc="/assets/img/double-check.png"
+      type="large"
+      (click)="handleNewRollClick()"
+    ></app-button>
+  </div>
+</div>

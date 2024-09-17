@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModifierService } from '../../services/modifier.service';
+import { ModifierService } from '../../../services/modifier.service';
 import { NgClass, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 

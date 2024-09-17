@@ -2,13 +2,20 @@ import { Component } from '@angular/core';
 import { ResultsBarComponent } from '../results-bar/results-bar.component';
 import { ResultsListComponent } from '../results-list/results-list.component';
 import { ButtonComponent } from '../button/button.component';
-import { RollService } from '../../services/roll.service';
-import { ModifierService } from '../../services/modifier.service';
+import { RollService } from '../../../services/roll.service';
+import { ModifierService } from '../../../services/modifier.service';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-body',
   standalone: true,
-  imports: [ResultsBarComponent, ResultsListComponent, ButtonComponent],
+  imports: [
+    ResultsBarComponent,
+    ResultsListComponent,
+    ButtonComponent,
+    RouterLink,
+    RouterLinkActive,
+  ],
   templateUrl: './body.component.html',
   styleUrl: './body.component.css',
 })

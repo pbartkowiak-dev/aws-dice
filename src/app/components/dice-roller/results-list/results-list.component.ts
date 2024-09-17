@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { RollService } from '../../services/roll.service';
-import { RollResult } from '../../model/roll';
+import { RollService } from '../../../services/roll.service';
+import { RollResult } from '../../../model/roll';
 
 @Component({
   selector: 'app-results-list',

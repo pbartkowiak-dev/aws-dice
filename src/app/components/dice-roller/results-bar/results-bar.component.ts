@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RollService } from '../../services/roll.service';
-import { RollResult } from '../../model/roll';
-import { ModifierService } from '../../services/modifier.service';
+import { RollService } from '../../../services/roll.service';
+import { RollResult } from '../../../model/roll';
+import { ModifierService } from '../../../services/modifier.service';
 import { combineLatest } from 'rxjs';
 
 @Component({

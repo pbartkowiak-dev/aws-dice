@@ -1,0 +1,18 @@
+.container {
+  width: 530px;
+  height: 900px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.body-container {
+  flex: 1;
+  background: url("/assets/img/bg.png");
+}
+
+.dice-tray-container {
+  background: white;
+  height: 260px;
+  padding: 2px 30px 10px;
+}
