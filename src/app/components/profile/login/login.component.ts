@@ -1,13 +1,42 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../dice-roller/button/button.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { Router } from '@angular/router';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
+import { ButtonComponent } from '../../dice-roller/button/button.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ButtonComponent, RouterLink, RouterLinkActive, NavBarComponent],
+  imports: [ReactiveFormsModule, NavBarComponent, ButtonComponent, NgIf],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrls: ['./login.component.css'],
 })
-export class Login {}
+export class Login {
+  loginForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+  ) {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
+  }
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      const { username, email, password } = this.loginForm.value;
+      console.log('Form data:', { username, email, password });
+
+      this.router.navigate(['/home']); // Redirect after logging in
+    }
+  }
+}

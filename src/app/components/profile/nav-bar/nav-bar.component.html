@@ -1,21 +1,15 @@
-<div class="container">
+<ng-container>
   <div class="left">
     <a ariaCurrentWhenActive="page" routerLink="" routerLinkActive="active">
-      <app-button
-        label="Back"
-      ></app-button>
+      <app-nav-button>Back</app-nav-button>
     </a>
   </div>
   <div class="right">
-    <a ariaCurrentWhenActive="page" routerLink="" routerLinkActive="active">
-      <app-button
-        label="Log in"
-      ></app-button>
+    <a ariaCurrentWhenActive="page" routerLink="/login" routerLinkActive="active">
+      <app-nav-button>Log in</app-nav-button>
     </a>
-    <a ariaCurrentWhenActive="page" routerLink="" routerLinkActive="active">
-      <app-button
-        label="Register"
-      ></app-button>
+    <a ariaCurrentWhenActive="page" routerLink="/register" routerLinkActive="active">
+      <app-nav-button>Register</app-nav-button>
     </a>
   </div>
-</div>
+</ng-container>
