@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ButtonComponent } from '../../dice-roller/button/button.component';
 import { NgIf } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ export class Login {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private authService: AuthService,
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -33,7 +35,8 @@ export class Login {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const { username, email, password } = this.loginForm.value;
+      const data = this.loginForm.value;
+      const { username, email, password } = data;
       console.log('Form data:', { username, email, password });
 
       this.router.navigate(['/home']); // Redirect after logging in

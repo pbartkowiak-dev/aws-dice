@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ButtonComponent } from '../../dice-roller/button/button.component';
 import { NgIf } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
+import { RegisterData } from '../../../model/auth';
 
 @Component({
   selector: 'app-register',
@@ -23,21 +25,29 @@ export class Register {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private authService: AuthService,
   ) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      'confirm-password': ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.registerForm.valid) {
-      const { username, email, password } = this.registerForm.value;
+      const data = this.registerForm.value;
+      const { username, email, password, confirmPassword } = data;
       console.log('Form data:', { username, email, password });
 
-      this.router.navigate(['/home']); // Redirect after logging in
+      await this.authService.register({
+        username,
+        email,
+        password,
+      } as RegisterData);
+
+      this.router.navigate(['/']); // Redirect after logging in
     }
   }
 }
