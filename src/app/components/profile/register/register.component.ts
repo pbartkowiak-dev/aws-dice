@@ -21,6 +21,7 @@ import { RegisterData } from '../../../model/auth';
 })
 export class Register {
   registerForm: FormGroup;
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -32,6 +33,10 @@ export class Register {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+    });
+
+    authService.getIsLoading.subscribe((value: boolean) => {
+      this.isLoading = value;
     });
   }
 
@@ -47,7 +52,7 @@ export class Register {
         password,
       } as RegisterData);
 
-      this.router.navigate(['/']); // Redirect after logging in
+      // this.router.navigate(['/']); // Redirect after logging in
     }
   }
 }

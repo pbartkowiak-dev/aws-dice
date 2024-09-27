@@ -57,5 +57,6 @@
 
 .btn-primary:disabled {
   background-color: #cccccc;
+  cursor: not-allowed;
 }
 

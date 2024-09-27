@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { RegisterData } from '../model/auth';
 
 import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 const poolData = {
   UserPoolId: 'foo',
@@ -14,7 +15,14 @@ const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
   providedIn: 'root',
 })
 export class AuthService {
+  private isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false,
+  );
+  getIsLoading: Observable<boolean> = this.isLoading.asObservable();
+
   constructor() {}
 
-  async register(data: RegisterData) {}
+  async register(data: RegisterData) {
+    this.isLoading.next(true);
+  }
 }

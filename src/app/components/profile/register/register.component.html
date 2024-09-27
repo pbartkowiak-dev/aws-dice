@@ -61,7 +61,7 @@
         </div>
       </div>
 
-      <button class="btn-primary" type="submit" [disabled]="registerForm.invalid">
+      <button class="btn-primary" type="submit" [disabled]="registerForm.invalid || isLoading">
         Register
       </button>
     </form>
