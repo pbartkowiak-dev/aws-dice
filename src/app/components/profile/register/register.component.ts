@@ -10,7 +10,7 @@ import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ButtonComponent } from '../../dice-roller/button/button.component';
 import { NgIf } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
-import { RegisterData } from '../../../model/auth';
+import { ConfirmUserData, RegisterData } from '../../../model/auth';
 
 @Component({
   selector: 'app-register',
@@ -21,6 +21,7 @@ import { RegisterData } from '../../../model/auth';
 })
 export class Register {
   registerForm: FormGroup;
+  confirmForm: FormGroup;
   isLoading = false;
 
   constructor(
@@ -33,6 +34,10 @@ export class Register {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+    });
+    this.confirmForm = this.fb.group({
+      confirmUsername: ['', Validators.required],
+      code: ['', [Validators.required]],
     });
 
     authService.getIsLoading.subscribe((value: boolean) => {
@@ -53,6 +58,18 @@ export class Register {
       } as RegisterData);
 
       // this.router.navigate(['/']); // Redirect after logging in
+    }
+  }
+
+  async confirmUser() {
+    if (this.confirmForm.valid) {
+      const data = this.confirmForm.value;
+      const { confirmUsername, code } = data;
+
+      await this.authService.confirmUser({
+        username: confirmUsername,
+        code,
+      } as ConfirmUserData);
     }
   }
 }

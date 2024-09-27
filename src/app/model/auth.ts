@@ -3,3 +3,8 @@ export interface RegisterData {
   email: string;
   password: string;
 }
+
+export interface ConfirmUserData {
+  username: string;
+  code: string;
+}
