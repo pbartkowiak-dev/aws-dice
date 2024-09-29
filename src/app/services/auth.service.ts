@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ConfirmUserData, RegisterData } from '../model/auth';
-
+import { ConfirmUserData, RegisterData, SignInData } from '../model/auth';
 import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CognitoUser, CognitoUserAttribute } from 'amazon-cognito-identity-js';
+import {
+  CognitoUser,
+  CognitoUserAttribute,
+  CognitoUserSession,
+} from 'amazon-cognito-identity-js';
+import { Router } from '@angular/router';
 
 const poolData = {
   UserPoolId: 'foo',
@@ -25,7 +29,13 @@ export class AuthService {
 
   private registeredUser: CognitoUser | undefined;
 
-  constructor() {}
+  constructor(private router: Router) {}
+
+  handleError(error: any) {
+    console.error(error?.message || JSON.stringify(error));
+    this.authDidFailed.next(true);
+    this.isLoading.next(false);
+  }
 
   async register(data: RegisterData) {
     this.isLoading.next(true);
@@ -41,15 +51,12 @@ export class AuthService {
       null,
       (err, result) => {
         if (err) {
-          this.isLoading.next(false);
-          this.authDidFailed.next(true);
-          console.error(err.message || JSON.stringify(err));
+          this.handleError(err);
           return;
         }
 
         if (result) {
           this.registeredUser = result.user;
-          console.log('user name is ' + this.registeredUser.getUsername());
         }
         this.authDidFailed.next(false);
         this.isLoading.next(false);
@@ -64,14 +71,72 @@ export class AuthService {
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     cognitoUser.confirmRegistration(data.code, true, (err, result) => {
       if (err) {
-        console.error(err.message || JSON.stringify(err));
-        this.authDidFailed.next(true);
-        this.isLoading.next(false);
+        this.handleError(err);
         return;
       }
       console.log('call result: ' + result);
       this.authDidFailed.next(false);
       this.isLoading.next(false);
     });
+  }
+
+  async signIn(data: SignInData) {
+    const { username, password } = data;
+    this.isLoading.next(true);
+
+    const authenticationData = {
+      Username: username,
+      Password: password,
+    };
+    const authenticationDetails =
+      new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+    const userData = {
+      Username: username,
+      Pool: userPool,
+    };
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: (result: CognitoUserSession) => {
+        this.isLoading.next(false);
+        console.log('result', result);
+      },
+
+      onFailure: (err) => {
+        this.handleError(err);
+        return;
+      },
+    });
+  }
+
+  getAuthenticatedUser() {
+    return userPool.getCurrentUser();
+  }
+
+  isAuthenticated(): Observable<boolean> {
+    return new Observable<boolean>((observer) => {
+      const user = this.getAuthenticatedUser();
+      if (!user) {
+        observer.next(false);
+        observer.complete();
+      } else {
+        user.getSession((err: any, session: CognitoUserSession) => {
+          if (err) {
+            observer.next(false);
+          } else {
+            observer.next(session.isValid());
+          }
+          observer.complete();
+        });
+      }
+    });
+  }
+
+  async logOut() {
+    const user = await this.getAuthenticatedUser();
+    if (user) {
+      user.signOut();
+      await this.router.navigate(['/login']);
+    }
   }
 }

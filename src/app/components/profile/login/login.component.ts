@@ -10,6 +10,7 @@ import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ButtonComponent } from '../../dice-roller/button/button.component';
 import { NgIf } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
+import { SignInData } from '../../../model/auth';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,6 @@ export class Login {
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
@@ -36,10 +36,12 @@ export class Login {
   onSubmit() {
     if (this.loginForm.valid) {
       const data = this.loginForm.value;
-      const { username, email, password } = data;
-      console.log('Form data:', { username, email, password });
+      const { username, password } = data;
+      console.log('Form data:', { username, password });
 
-      this.router.navigate(['/home']); // Redirect after logging in
+      this.authService.signIn({ username, password } as SignInData);
+
+      this.router.navigate(['/']); // Redirect after logging in
     }
   }
 }

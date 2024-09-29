@@ -18,21 +18,6 @@
           Username is required
         </div>
       </div>
-
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          id="email"
-          formControlName="email"
-          type="email"
-          class="form-control"
-          placeholder="Enter email"
-        />
-        <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="error">
-          Enter a valid email
-        </div>
-      </div>
-
       <div class="form-group">
         <label for="password">Password</label>
         <input
