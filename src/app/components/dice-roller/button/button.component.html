@@ -1,6 +1,10 @@
 <button
   class="container"
-  [ngClass]="{ circle: type === 'circle', large: type === 'large' }"
+  [ngClass]="{
+    circle: type === 'circle',
+    large: type === 'large',
+    inverted: type === 'inverted',
+  }"
 >
-  {{ label }} <img *ngIf="iconSrc" class="icon" src="{{ iconSrc }}" />
+  <span>{{ label }}</span> <img *ngIf="iconSrc" class="icon" src="{{ iconSrc }}" />
 </button>

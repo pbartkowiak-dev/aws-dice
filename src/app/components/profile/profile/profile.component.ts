@@ -24,7 +24,7 @@ export class Profile {
 
   async checkUser() {
     const user = await this.authService.getAuthenticatedUser();
-    console.log('user', user);
+
     if (!user) {
       this.router.navigate(['login']);
       return;
