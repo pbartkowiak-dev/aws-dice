@@ -8,6 +8,9 @@
     <a ariaCurrentWhenActive="page" routerLink="/login" routerLinkActive="active" *ngIf="!(isAuthenticated | async)">
       <app-nav-button>Log in</app-nav-button>
     </a>
+    <a ariaCurrentWhenActive="page" routerLink="/forgot-password" routerLinkActive="active" *ngIf="!(isAuthenticated | async)">
+      <app-nav-button>Forgot Password</app-nav-button>
+    </a>
     <a ariaCurrentWhenActive="page" routerLink="/register" routerLinkActive="active" *ngIf="!(isAuthenticated | async)">
       <app-nav-button>Register</app-nav-button>
     </a>

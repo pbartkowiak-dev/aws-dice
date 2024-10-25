@@ -13,3 +13,9 @@ export interface SignInData {
   username: string;
   password: string;
 }
+
+export interface ForgotPasswordData {
+  username: string;
+  code: string;
+  password: string;
+}
