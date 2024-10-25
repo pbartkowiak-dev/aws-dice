@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ConfirmUserData, RegisterData, SignInData } from '../model/auth';
+import {
+  ConfirmUserData,
+  ForgotPasswordData,
+  RegisterData,
+  SignInData,
+} from '../model/auth';
 import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
@@ -10,8 +15,8 @@ import {
 import { Router } from '@angular/router';
 
 const poolData = {
-  UserPoolId: 'foo',
-  ClientId: 'bar',
+  UserPoolId: 'us-east-1_q6UXbhc0F',
+  ClientId: '1pr8edt86cqp11dj3j1fq2khve',
 };
 
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
@@ -80,6 +85,15 @@ export class AuthService {
     });
   }
 
+  getCognitoUser(username: string): CognitoUser {
+    const userData = {
+      Username: username,
+      Pool: userPool,
+    };
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    return cognitoUser;
+  }
+
   async signIn(data: SignInData) {
     const { username, password } = data;
     this.isLoading.next(true);
@@ -90,11 +104,8 @@ export class AuthService {
     };
     const authenticationDetails =
       new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
-    const userData = {
-      Username: username,
-      Pool: userPool,
-    };
-    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+
+    const cognitoUser = this.getCognitoUser(username);
 
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (result: CognitoUserSession) => {
@@ -138,5 +149,39 @@ export class AuthService {
       user.signOut();
       await this.router.navigate(['/login']);
     }
+  }
+
+  async forgotPassword({
+    username,
+    code: verificationCode,
+    password: newPassword,
+  }: ForgotPasswordData) {
+    const cognitoUser = this.getCognitoUser(username);
+    if (!cognitoUser) {
+      return;
+    }
+
+    cognitoUser.forgotPassword({
+      onSuccess: function (data) {
+        // successfully initiated reset password request
+        console.log('CodeDeliveryData from forgotPassword: ' + data);
+      },
+      onFailure: function (err) {
+        alert(err.message || JSON.stringify(err));
+      },
+      //Optional automatic callback
+      inputVerificationCode: function (data) {
+        console.log('Code sent to: ' + data);
+
+        cognitoUser.confirmPassword(verificationCode, newPassword, {
+          onSuccess() {
+            console.log('Password confirmed!');
+          },
+          onFailure(err) {
+            console.log('Password not confirmed!');
+          },
+        });
+      },
+    });
   }
 }

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [NavBarComponent, NgIf, ReactiveFormsModule],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css',
+  styleUrl: '../profile.css',
 })
 export class Profile {
   username: string = '';

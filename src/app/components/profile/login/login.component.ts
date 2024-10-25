@@ -17,7 +17,7 @@ import { SignInData } from '../../../model/auth';
   standalone: true,
   imports: [ReactiveFormsModule, NavBarComponent, ButtonComponent, NgIf],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrl: '../profile.css',
 })
 export class Login {
   loginForm: FormGroup;

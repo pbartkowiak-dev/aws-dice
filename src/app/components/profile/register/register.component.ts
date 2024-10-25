@@ -17,7 +17,7 @@ import { ConfirmUserData, RegisterData } from '../../../model/auth';
   standalone: true,
   imports: [ReactiveFormsModule, NavBarComponent, ButtonComponent, NgIf],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  styleUrl: '../profile.css',
 })
 export class Register {
   registerForm: FormGroup;

@@ -17,7 +17,7 @@ import { ForgotPasswordData, SignInData } from '../../../model/auth';
   standalone: true,
   imports: [ReactiveFormsModule, NavBarComponent, ButtonComponent, NgIf],
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['../login/login.component.css'],
+  styleUrl: '../profile.css',
 })
 export class ForgotPassword {
   forgotPasswordForm: FormGroup;
